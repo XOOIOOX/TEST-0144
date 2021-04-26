@@ -88,12 +88,19 @@
     <QtRcc Include="TEST0144.qrc" />
     <QtUic Include="TEST0144.ui" />
     <QtMoc Include="TEST0144.h" />
+    <ClCompile Include="LineItem.cpp" />
     <ClCompile Include="LineWidget.cpp" />
     <ClCompile Include="TEST0144.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LineWidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="LineItem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GlobalStructs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

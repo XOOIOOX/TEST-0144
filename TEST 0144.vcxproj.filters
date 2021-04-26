@@ -7,7 +7,12 @@
     <ClCompile Include="TEST0144.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LineWidget.cpp" />
+    <ClCompile Include="LineItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LineWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Form Files">
@@ -32,11 +37,21 @@
     <QtMoc Include="TEST0144.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="LineWidget.h" />
+    <QtMoc Include="LineItem.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="LineWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="TEST0144.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GlobalStructs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
