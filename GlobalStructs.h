@@ -17,6 +17,17 @@ struct Item
 	int length{ 0 };
 };
 
+struct Range																			// диапазон
+{
+	double minimum, maximum;
+	double range() { return maximum - minimum; }
+	double compress(double input) { return  (input - minimum) / range(); }
+	double expand(double input) { return input * range() + minimum; }
+	bool inRange(double input) { return input >= minimum && input <= maximum; }
+	double toRange(double input) { return input < minimum ? minimum : input > maximum ? maximum : input; }
+	double toRange(double input) const { return input < minimum ? minimum : input > maximum ? maximum : input; }
+};
+
 template<typename T>
 using Vector = std::vector<T>;
 
