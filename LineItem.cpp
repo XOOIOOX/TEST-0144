@@ -15,7 +15,9 @@ void LineItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
 
 		for (auto& i : visibleItems)
 		{
-			painter->drawRect(QRectF{ QPointF{static_cast<double>( i.begin), 0.0 }, QSizeF{ static_cast<double>(i.length), static_cast<double>(height) } });
+			painter->drawRect(QRectF{ QPointF{static_cast<double>( i.begin), 0.0 }, QSizeF{ static_cast<double>(i.length), static_cast<double>(lineHeight) } });
 		}
 	}
 }
+
+void LineItem::setHeight(int height) { lineHeight = height; }

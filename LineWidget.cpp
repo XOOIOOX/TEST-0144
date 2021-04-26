@@ -27,6 +27,7 @@ void LineWidget::sceneInit()
 
 void LineWidget::updateItems()
 {
+	lineItem->setHeight(height());
 	lineItem->visibleItems = items;				// временно
 }
 

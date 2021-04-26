@@ -11,7 +11,8 @@ public:
 	LineItem();
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
 	VectorItem visibleItems;
+	void setHeight(int height);
 
 private:
-	int height{ 20 };
+	int lineHeight{ 0 };
 };
