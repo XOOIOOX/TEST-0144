@@ -10,7 +10,8 @@ class LineItem : public QObject, public QGraphicsRectItem
 public:
 	LineItem();
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr);
+	VectorItem visibleItems;
 
 private:
-
+	int height{ 20 };
 };

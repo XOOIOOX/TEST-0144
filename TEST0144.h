@@ -3,6 +3,7 @@
 #include <QtWidgets/QWidget>
 #include "ui_TEST0144.h"
 #include "LineWidget.h"
+#include "GlobalStructs.h"
 
 class TEST0144 : public QWidget
 {
@@ -15,4 +16,5 @@ private:
 	Ui::TEST0144Class ui;
 	QGraphicsView* view;											// вьюшка
 	LineWidget* lineWidget;
+	VectorItem items;
 };
