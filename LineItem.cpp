@@ -2,8 +2,7 @@
 #include "LineItem.h"
 
 LineItem::LineItem()
-{
-}
+{}
 
 void LineItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
@@ -15,7 +14,7 @@ void LineItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
 
 		for (auto& i : visibleItems)
 		{
-			painter->drawRect(QRectF{ QPointF{static_cast<double>( i.begin), 0.0 }, QSizeF{ static_cast<double>(i.length), static_cast<double>(lineHeight) } });
+			painter->drawRect(QRectF{ QPointF{ static_cast<double>(i.begin), 0.0 }, QSizeF{ static_cast<double>(i.length), static_cast<double>(lineHeight) } });
 		}
 	}
 }
