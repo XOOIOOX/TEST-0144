@@ -5,7 +5,7 @@ TEST0144::TEST0144(QWidget* parent) : QWidget(parent)
 {
 	std::srand(static_cast<uint32>(std::time(nullptr)));
 
-	for (int i = 0, pos = 0, len = 0; i < 200; ++i)
+	for (int i = 0, pos = 0, len = 0; i < 20000; ++i)
 	{
 		pos = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 20) + (pos + len);
 		len = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 100);

@@ -1,6 +1,7 @@
 #include <QEvent>
 #include <QMouseEvent>
 #include "LineWidget.h"
+#include <iostream>
 
 LineWidget::LineWidget(VectorItem& items, QWidget* parent /*= nullptr*/, QGraphicsView* view /*= nullptr*/) : items(items), QWidget(parent), view(view)
 {
@@ -66,8 +67,13 @@ void LineWidget::updateItems()
 		auto pos = static_cast<int>(convertValueToPosition(static_cast<double>(i.begin)));
 		auto len = static_cast<int>(convertValueToPosition(static_cast<double>(i.length)));
 		if (len < 1) { len = 1; }
-		lineItem->visibleItems.push_back({ pos, len });
+		if (pos + len > 0 && pos < areaSize.width()) { lineItem->visibleItems.push_back({ pos, len }); }
 	}
+
+	auto last = std::unique(lineItem->visibleItems.begin(), lineItem->visibleItems.end(), [](const auto& a, const auto& b) { return a.begin == b.begin; });
+	lineItem->visibleItems.erase(last, lineItem->visibleItems.end());
+
+	std::cout << lineItem->visibleItems.size()<< std::endl;
 }
 
 double LineWidget::convertValueToPosition(double point)
