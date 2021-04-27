@@ -72,8 +72,6 @@ void LineWidget::updateItems()
 
 	auto last = std::unique(lineItem->visibleItems.begin(), lineItem->visibleItems.end(), [](const auto& a, const auto& b) { return a.begin == b.begin; });
 	lineItem->visibleItems.erase(last, lineItem->visibleItems.end());
-
-	std::cout << lineItem->visibleItems.size()<< std::endl;
 }
 
 double LineWidget::convertValueToPosition(double point)
