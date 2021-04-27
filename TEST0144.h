@@ -11,10 +11,14 @@ class TEST0144 : public QWidget
 
 public:
 	TEST0144(QWidget* parent = Q_NULLPTR);
+	~TEST0144();
+
+	bool eventFilter(QObject* obj, QEvent* evt);									// ивент-фильтр
 
 private:
 	Ui::TEST0144Class ui;
 	QGraphicsView* view;											// вьюшка
 	LineWidget* lineWidget;
 	VectorItem items;
+	bool eventResize();
 };

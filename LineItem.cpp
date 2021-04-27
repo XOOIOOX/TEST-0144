@@ -1,8 +1,10 @@
 #include <QPainter>
 #include "LineItem.h"
+#include <iostream>
 
-LineItem::LineItem()
-{}
+LineItem::LineItem() {}
+
+LineItem::~LineItem() {}
 
 void LineItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {

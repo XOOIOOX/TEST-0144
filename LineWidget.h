@@ -12,6 +12,8 @@ class LineWidget : public QWidget
 	Q_OBJECT
 public:
 	LineWidget(VectorItem& items, QWidget* parent = nullptr, QGraphicsView* view = nullptr);
+	~LineWidget();
+
 	bool eventFilter(QObject* obj, QEvent* evt);
 	void update();
 	void setRange(Range inRange);															// диапазон входных значений
@@ -20,6 +22,7 @@ public:
 	void zoomPlus();
 
 private:
+	QWidget* parent;
 	QGraphicsScene* scene;																	// сцена
 	QGraphicsView* view;																	// вьюшка
 	LineItem* lineItem;																		// итем полоски
@@ -36,4 +39,7 @@ private:
 	void areaSizeCalc();
 	void zoomCalc();
 	bool eventWheel(QWheelEvent* we);														// обработка колеса мыши
+
+public slots:
+	void changeRectSlot(QRect rect);
 };

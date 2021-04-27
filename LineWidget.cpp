@@ -3,7 +3,7 @@
 #include "LineWidget.h"
 #include <iostream>
 
-LineWidget::LineWidget(VectorItem& items, QWidget* parent /*= nullptr*/, QGraphicsView* view /*= nullptr*/) : items(items), QWidget(parent), view(view)
+LineWidget::LineWidget(VectorItem& items, QWidget* parent /*= nullptr*/, QGraphicsView* view /*= nullptr*/) : items(items), QWidget(parent), view(view), parent(parent)
 {
 	installEventFilter(this);
 	resize(parent->size());
@@ -11,6 +11,8 @@ LineWidget::LineWidget(VectorItem& items, QWidget* parent /*= nullptr*/, QGraphi
 	sceneInit();
 	update();
 }
+
+LineWidget::~LineWidget() {}
 
 bool LineWidget::eventFilter(QObject* obj, QEvent* evt)
 {
@@ -114,5 +116,15 @@ void LineWidget::zoomMinus()
 void LineWidget::zoomPlus()
 {
 	zoomLevel *= zoomMultiplier;
+	update();
+}
+
+void LineWidget::changeRectSlot(QRect rect)
+{
+	resize(rect.size());
+	parent->resize(rect.size());
+	view->resize(rect.size());
+	scene->setSceneRect(view->rect());
+	areaSizeCalc();
 	update();
 }
