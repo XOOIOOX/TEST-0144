@@ -63,8 +63,10 @@ void LineWidget::updateItems()
 	lineItem->visibleItems.clear();
 	for (auto& i : items)
 	{
-		lineItem->visibleItems.push_back({ static_cast<int>(convertValueToPosition(static_cast<double>(i.begin))),
-										 static_cast<int>(convertValueToPosition(static_cast<double>(i.length))) });
+		auto pos = static_cast<int>(convertValueToPosition(static_cast<double>(i.begin)));
+		auto len = static_cast<int>(convertValueToPosition(static_cast<double>(i.length)));
+		if (len < 1) { len = 1; }
+		lineItem->visibleItems.push_back({ pos, len });
 	}
 }
 

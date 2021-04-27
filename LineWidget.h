@@ -4,7 +4,7 @@
 #include "GlobalStructs.h"
 #include "LineItem.h"
 
-constexpr auto zoomMultiplier{ 1.2 };														// множитель зума
+constexpr auto zoomMultiplier{ 1.25 };														// множитель зума
 
 class LineWidget : public QWidget
 {
