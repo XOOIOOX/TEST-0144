@@ -5,6 +5,7 @@
 #include "LineItem.h"
 
 constexpr auto zoomMultiplier{ 1.25 };														// множитель зума
+constexpr auto windgetBorder{ 3.0 };														// значение бордюра
 
 class LineWidget : public QWidget
 {
@@ -23,7 +24,7 @@ private:
 	QGraphicsView* view;																	// вьюшка
 	LineItem* lineItem;																		// итем полоски
 	VectorItem& items;																		// ссылка на данные полоски
-	double border{ 0 };																		// бордюр
+	double border{ windgetBorder };															// бордюр
 	Range inputRange{ 0.0, 1.0 };															// входной диапазон
 	QSizeF areaSize{ 0.0, 0.0 };															// размер активной области
 	double zoomLevel{ 1.0 };																// уровень приближения, 1 = весь диапазон

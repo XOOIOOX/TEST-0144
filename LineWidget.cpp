@@ -61,13 +61,14 @@ void LineWidget::sceneInit()
 void LineWidget::updateItems()
 {
 	lineItem->setHeight(height());
+	lineItem->setBorder(border);
 	lineItem->visibleItems.clear();
 	for (auto& i : items)
 	{
-		auto pos = static_cast<int>(convertValueToPosition(static_cast<double>(i.begin)));
-		auto len = static_cast<int>(convertValueToPosition(static_cast<double>(i.length)));
-		if (len < 1) { len = 1; }
-		if (pos + len > 0 && pos < areaSize.width()) { lineItem->visibleItems.push_back({ pos, len }); }
+		auto pos = convertValueToPosition(static_cast<double>(i.begin));
+		auto len = convertValueToPosition(static_cast<double>(i.length));
+		if (len < 1.0) { len = 1.0; }
+		if (pos + len > 0.0 && pos < areaSize.width()) { lineItem->visibleItems.push_back({ static_cast<int>(pos), static_cast<int>(len) }); }
 	}
 
 	auto last = std::unique(lineItem->visibleItems.begin(), lineItem->visibleItems.end(), [](const auto& a, const auto& b) { return a.begin == b.begin; });
@@ -76,12 +77,12 @@ void LineWidget::updateItems()
 
 double LineWidget::convertValueToPosition(double point)
 {
-	return ((point - inputRange.minimum) / (inputRange.maximum - inputRange.minimum) * areaSize.width() + border) * zoomLevel;
+	return ((point - inputRange.minimum) / (inputRange.maximum - inputRange.minimum) * areaSize.width()) * zoomLevel;
 }
 
 double LineWidget::convertPositionToValue(double point)
 {
-	return ((point / zoomLevel - border) / areaSize.width()) * (inputRange.maximum - inputRange.minimum) + inputRange.minimum;
+	return (((point) / zoomLevel) / areaSize.width()) * (inputRange.maximum - inputRange.minimum) + inputRange.minimum;
 }
 
 void LineWidget::areaSizeCalc()

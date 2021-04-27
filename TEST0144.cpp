@@ -5,11 +5,11 @@ TEST0144::TEST0144(QWidget* parent) : QWidget(parent)
 {
 	std::srand(static_cast<uint32>(std::time(nullptr)));
 
-	for (int i = 0, pos = 0, len = 0; i < 200000; ++i)
+	for (int i = 0, pos = 0, len = 0; i < 100; ++i)
 	{
-		pos = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 20) + (pos + len);
-		len = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 100);
 		items.push_back({ pos, len });
+		pos = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 10.0) + (pos + len);
+		len = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 10.0 + 1.0);
 	}
 
 	ui.setupUi(this);
