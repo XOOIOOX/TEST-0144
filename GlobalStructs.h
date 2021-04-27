@@ -10,6 +10,7 @@ using uint16 = uint16_t;
 using uint32 = uint32_t;
 using uint64 = uint64_t;
 
+class LineWidget;
 
 struct Item
 {
@@ -28,11 +29,15 @@ struct Range																			// диапазон
 	double toRange(double input) const { return input < minimum ? minimum : input > maximum ? maximum : input; }
 };
 
-template<typename T>
-using Vector = std::vector<T>;
+template<typename T> using Vector = std::vector<T>;
+template<typename T> using Shared = std::shared_ptr<T>;
+template<typename T, typename U> auto makeItem(U& data) { return std::make_shared<T>(data); }	// сокращенный make_shared (с параметрами конструтора)
+template<typename T> auto makeItem() { return std::make_shared<T>(); }							// сокращенный make_shared (без параметров конструтора)
 
 using VectorInt = Vector<int>;
 using VectorItem = Vector<Item>;
 using VectorVectorItem = Vector<VectorItem>;
 using VectorViewws = Vector<QGraphicsView*>;
-using VectorWidgetss = Vector<QWidget*>;
+using VectorWidgets = Vector<QWidget*>;
+using VectorLineWidgets = Vector<LineWidget*>;
+

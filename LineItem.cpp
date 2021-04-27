@@ -4,14 +4,13 @@
 
 LineItem::LineItem() {}
 
-LineItem::~LineItem() {}
+LineItem::~LineItem() { std::cout << "Line item dest" << std::endl; }
 
 void LineItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {
 	if (!visibleItems.empty())
 	{
 		painter->setPen({ Qt::NoPen });
-		//painter->setPen(QPen(QColor{ 255, 0, 0 }, 0.5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 		painter->setBrush(Qt::BrushStyle(Qt::SolidPattern));
 		painter->setBrush(QColor{ 43, 181, 255 });
 

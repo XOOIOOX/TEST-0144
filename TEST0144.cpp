@@ -6,11 +6,11 @@ TEST0144::TEST0144(QWidget* parent) : QWidget(parent)
 {
 	std::srand(static_cast<uint32>(std::time(nullptr)));
 
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < numWidgets; ++i)
 	{
 		items.clear();
 
-		for (int j = 0, pos = 0, len = 0; j < 2000; ++j)
+		for (int j = 0, pos = 0, len = 0; j < numItems; ++j)
 		{
 			items.push_back({ pos, len });
 			pos = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 10.0) + (pos + len);
@@ -18,19 +18,26 @@ TEST0144::TEST0144(QWidget* parent) : QWidget(parent)
 		}
 
 		manyItems.push_back(items);
+		widgets.push_back(new QWidget(this));
+		widgets.back()->resize({ size().width(), size().height() / numWidgets });
+		widgets.back()->move(widgets.back()->pos().x(), size().height() / numWidgets * i);
+	}
+
+	for (auto& i : widgets) { views.push_back(new QGraphicsView(i)); }
+
+	for (int i = 0; i < numWidgets; ++i)
+	{
+		lineWidgets.push_back(new LineWidget(manyItems[i], widgets[i], views[i]));
+		auto [min, max] = std::minmax_element(manyItems[i].begin(), manyItems[i].end(), [](const auto& a, const auto& b) { return a.begin < b.begin; });
+		lineWidgets.back()->setRange({ static_cast<double>(min->begin), static_cast<double>(max->begin + max->length) });
+		lineWidgets.back()->zoomAll();
 	}
 
 	ui.setupUi(this);
 	installEventFilter(this);
-
-	view = ui.view;
-	lineWidget = new LineWidget(items, ui.widget, view);
-	auto [min, max] = std::minmax_element(items.begin(), items.end(), [](const auto& a, const auto& b) { return a.begin < b.begin; });
-	lineWidget->setRange({ static_cast<double>(min->begin), static_cast<double>(max->begin + max->length) });
-	lineWidget->zoomAll();
 }
 
-TEST0144::~TEST0144() {}
+TEST0144::~TEST0144() { std::cout << "TEST dest" << std::endl; }
 
 bool TEST0144::eventFilter(QObject* obj, QEvent* evt)
 {
@@ -47,6 +54,11 @@ bool TEST0144::eventFilter(QObject* obj, QEvent* evt)
 
 bool TEST0144::eventResize()
 {
-	lineWidget->changeRectSlot(rect());
+	for (int i = 0; i < numWidgets; ++i)
+	{
+		widgets[i]->move(widgets[i]->pos().x(), size().height() / numWidgets * i);
+		QRect lineWidgetRect{ rect().topLeft().x(), rect().topLeft().y() + i * (size().height() / numWidgets), width(), height() / numWidgets };
+		lineWidgets[i]->changeRectSlot(lineWidgetRect);
+	}
 	return true;
 }

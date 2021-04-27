@@ -12,7 +12,7 @@ LineWidget::LineWidget(VectorItem& items, QWidget* parent /*= nullptr*/, QGraphi
 	update();
 }
 
-LineWidget::~LineWidget() {}
+LineWidget::~LineWidget() { std::cout << "Line dest" << std::endl; }
 
 bool LineWidget::eventFilter(QObject* obj, QEvent* evt)
 {
