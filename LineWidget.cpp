@@ -4,7 +4,8 @@ LineWidget::LineWidget(VectorItem& items, QWidget* parent /*= nullptr*/, QGraphi
 {
 	installEventFilter(this);
 	resize(parent->size());
-	calcAreaSize();
+	areaSizeCalc();
+	zoomLevel = fitAll();
 	sceneInit();
 	update();
 }
@@ -29,28 +30,45 @@ void LineWidget::sceneInit()
 void LineWidget::updateItems()
 {
 	lineItem->setHeight(height());
-	lineItem->visibleItems = items;				// временно
+	lineItem->visibleItems.clear();
+	for (auto& i : items)
+	{
+		lineItem->visibleItems.push_back({ static_cast<int>(convertValueToPosition({ static_cast<double>(i.begin), 0.0 }).x() * zoomLevel),
+										 static_cast<int>(convertValueToPosition({ static_cast<double>(i.length), 0.0 }).x() * zoomLevel) });
+	}
 }
 
 QPointF LineWidget::convertValueToPosition(QPointF point)
 {
 	return { (point.x() - inputRange.minimum) / (inputRange.maximum - inputRange.minimum) * areaSize.width() + border,
-		areaSize.height() - ((point.y() - outputRange.minimum) / (outputRange.maximum - outputRange.minimum)) * areaSize.height() + border };
+		areaSize.height() + border };
 }
 
 QPointF LineWidget::convertPositionToValue(QPointF point)
 {
 	return { ((point.x() - border) / areaSize.width()) * (inputRange.maximum - inputRange.minimum) + inputRange.minimum,
-		((areaSize.height() - (point.y() - border)) / areaSize.height()) * (outputRange.maximum - outputRange.minimum) + outputRange.minimum };
+		areaSize.height() - border };
 }
 
-void LineWidget::calcAreaSize()
+void LineWidget::areaSizeCalc()
 {
 	areaSize = { static_cast<double>(size().width() - border * 2), static_cast<double>(size().height() - border * 2) };
 }
 
-void LineWidget::update() { updateItems(); QWidget::update(); }
+void LineWidget::zoomCalc()
+{}
 
-void LineWidget::setRange(Range inRange, Range outRange)
+double LineWidget::fitAll()
 {
+	if (!items.empty())
+	{
+		auto firstItem = *items.begin();
+		auto lastItem = *(items.end() - 1);
+		auto length = (lastItem.begin + lastItem.length) - firstItem.begin;
+		return length > 0 ? areaSize.width() / static_cast<double>(length) : 1.0;
+	}
+	else { return 1.0; }
 }
+
+void LineWidget::update() { updateItems(); QWidget::update(); }
+void LineWidget::setRange(Range inRange) { inputRange = inRange; }
