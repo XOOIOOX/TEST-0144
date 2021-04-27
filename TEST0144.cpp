@@ -13,8 +13,8 @@ TEST0144::TEST0144(QWidget* parent) : QWidget(parent)
 		for (int j = 0, pos = 0, len = 0; j < numItems; ++j)
 		{
 			items.push_back({ pos, len });
-			pos = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 10.0) + (pos + len);
-			len = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 10.0 + 1.0);
+			pos = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 50.0) + (pos + len);
+			len = static_cast<int>((static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX)) * 50.0 + 1.0);
 		}
 
 		manyItems.push_back(items);
@@ -27,6 +27,7 @@ TEST0144::TEST0144(QWidget* parent) : QWidget(parent)
 
 	for (int i = 0; i < numWidgets; ++i)
 	{
+		views[i]->setFrameShape(QFrame::NoFrame);
 		lineWidgets.emplace_back(new LineWidget(manyItems[i], widgets[i].get(), views[i].get()));
 		auto [min, max] = std::minmax_element(manyItems[i].begin(), manyItems[i].end(), [](const auto& a, const auto& b) { return a.begin < b.begin; });
 		lineWidgets.back()->setRange({ static_cast<double>(min->begin), static_cast<double>(max->begin + max->length) });
