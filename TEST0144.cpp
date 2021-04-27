@@ -10,6 +10,4 @@ TEST0144::TEST0144(QWidget* parent) : QWidget(parent)
 	auto [min, max] = std::minmax_element(items.begin(), items.end(), [](const auto& a, const auto& b) { return a.begin < b.begin; });
 	lineWidget->setRange({ static_cast<double>(min->begin), static_cast<double>(max->begin + max->length) });
 	lineWidget->zoomAll();
-	//lineWidget->zoomMinus();
-	//lineWidget->zoomPlus();
 }

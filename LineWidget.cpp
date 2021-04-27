@@ -1,3 +1,5 @@
+#include <QEvent>
+#include <QMouseEvent>
 #include "LineWidget.h"
 
 LineWidget::LineWidget(VectorItem& items, QWidget* parent /*= nullptr*/, QGraphicsView* view /*= nullptr*/) : items(items), QWidget(parent), view(view)
@@ -11,6 +13,35 @@ LineWidget::LineWidget(VectorItem& items, QWidget* parent /*= nullptr*/, QGraphi
 
 bool LineWidget::eventFilter(QObject* obj, QEvent* evt)
 {
+	if (obj == this)
+	{
+		auto* me = static_cast<QMouseEvent*>(evt);
+		auto* we = static_cast<QWheelEvent*>(evt);
+		switch (evt->type())
+		{
+			//case QEvent::MouseButtonPress: { return eventButtonPress(me); }
+			//case QEvent::MouseButtonRelease: { return eventButtonRelease(); }
+			//case QEvent::MouseButtonDblClick: { return eventButtonDouble(me); }
+			//case QEvent::MouseMove& QEvent::HoverEnter: { return eventMoveHover(me); }
+			case QEvent::Wheel: { return eventWheel(we); }
+			default: { return false; }
+		}
+	}
+	else { return false; }
+}
+
+bool LineWidget::eventWheel(QWheelEvent* we)
+{
+	auto angle = we->angleDelta() / 8 / 15;
+	int num{ 0 };
+	if (angle.x() != 0) { num = angle.x(); }
+	if (angle.y() != 0) { num = angle.y(); }
+	if (we->modifiers() & Qt::ControlModifier)
+	{
+		if (num == 1) { zoomPlus(); return true; };
+		if (num == -1) { zoomMinus(); return true; };
+	}
+
 	return false;
 }
 
@@ -69,12 +100,12 @@ void LineWidget::zoomAll()
 
 void LineWidget::zoomMinus()
 {
-	zoomLevel /= 2.0;
+	zoomLevel /= zoomMultiplier;
 	update();
 }
 
 void LineWidget::zoomPlus()
 {
-	zoomLevel *= 2.0;
+	zoomLevel *= zoomMultiplier;
 	update();
 }

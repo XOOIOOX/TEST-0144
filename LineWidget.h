@@ -4,6 +4,8 @@
 #include "GlobalStructs.h"
 #include "LineItem.h"
 
+constexpr auto zoomMultiplier{ 1.2 };														// множитель зума
+
 class LineWidget : public QWidget
 {
 	Q_OBJECT
@@ -32,4 +34,5 @@ private:
 	double convertPositionToValue(double point);											// конвертация позиции в значение
 	void areaSizeCalc();
 	void zoomCalc();
+	bool eventWheel(QWheelEvent* we);														// обработка колеса мыши
 };
