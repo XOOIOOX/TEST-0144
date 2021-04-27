@@ -1,12 +1,9 @@
 #pragma once
 
-#include <QtWidgets/QWidget>
+#include <QWidget>
 #include "ui_TEST0144.h"
 #include "LineWidget.h"
 #include "GlobalStructs.h"
-
-constexpr int numWidgets{ 8 };
-constexpr int numItems{ 5000 };
 
 class TEST0144 : public QWidget
 {

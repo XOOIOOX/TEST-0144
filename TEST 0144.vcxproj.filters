@@ -43,15 +43,13 @@
     <QtMoc Include="LineWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="GlobalStructs.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="TEST0144.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GlobalStructs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 #include <QPainter>
-#include "LineItem.h"
 #include <iostream>
+#include "LineItem.h"
 
 LineItem::LineItem() {}
 
-LineItem::~LineItem() { std::cout << "Line item dest" << std::endl; }
+LineItem::~LineItem() {}
 
 void LineItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget /*= nullptr*/)
 {

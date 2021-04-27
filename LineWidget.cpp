@@ -1,7 +1,7 @@
 #include <QEvent>
 #include <QMouseEvent>
-#include "LineWidget.h"
 #include <iostream>
+#include "LineWidget.h"
 
 LineWidget::LineWidget(VectorItem& items, QWidget* parent /*= nullptr*/, QGraphicsView* view /*= nullptr*/) : items(items), QWidget(parent), view(view), parent(parent)
 {
@@ -9,10 +9,16 @@ LineWidget::LineWidget(VectorItem& items, QWidget* parent /*= nullptr*/, QGraphi
 	resize(parent->size());
 	areaSizeCalc();
 	sceneInit();
+
+	connect(&commonBus, &CommonBus::zoomPlusSignal, this, &LineWidget::zoomPlusSlot);
+	connect(&commonBus, &CommonBus::zoomMinusSignal, this, &LineWidget::zoomMinusSlot);
+	connect(this, &LineWidget::zoomPlusSignal, &commonBus, &CommonBus::zoomPlusSlot);
+	connect(this, &LineWidget::zoomMinusSignal, &commonBus, &CommonBus::zoomMinusSlot);
+
 	update();
 }
 
-LineWidget::~LineWidget() { std::cout << "Line dest" << std::endl; }
+LineWidget::~LineWidget() {}
 
 bool LineWidget::eventFilter(QObject* obj, QEvent* evt)
 {
@@ -41,8 +47,8 @@ bool LineWidget::eventWheel(QWheelEvent* we)
 	if (angle.y() != 0) { num = angle.y(); }
 	if (we->modifiers() & Qt::ControlModifier)
 	{
-		if (num == 1) { zoomPlus(); return true; };
-		if (num == -1) { zoomMinus(); return true; };
+		if (num == 1) { emit zoomPlusSignal(); return true; };
+		if (num == -1) { emit zoomMinusSignal(); return true; };
 	}
 
 	return false;
@@ -107,13 +113,13 @@ void LineWidget::zoomAll()
 	update();
 }
 
-void LineWidget::zoomMinus()
+void LineWidget::zoomMinusSlot()
 {
 	zoomLevel /= zoomMultiplier;
 	update();
 }
 
-void LineWidget::zoomPlus()
+void LineWidget::zoomPlusSlot()
 {
 	zoomLevel *= zoomMultiplier;
 	update();

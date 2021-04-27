@@ -1,6 +1,8 @@
 #include "TEST0144.h"
 #include <QtWidgets/QApplication>
 
+CommonBus commonBus;
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

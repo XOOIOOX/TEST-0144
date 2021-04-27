@@ -4,9 +4,6 @@
 #include "GlobalStructs.h"
 #include "LineItem.h"
 
-constexpr auto zoomMultiplier{ 1.25 };														// множитель зума
-constexpr auto windgetBorder{ 3.0 };														// значение бордюра
-
 class LineWidget : public QWidget
 {
 	Q_OBJECT
@@ -18,8 +15,6 @@ public:
 	void update();
 	void setRange(Range inRange);															// диапазон входных значений
 	void zoomAll();																			// показать весь диапазон
-	void zoomMinus();
-	void zoomPlus();
 
 private:
 	QWidget* parent;
@@ -42,4 +37,10 @@ private:
 
 public slots:
 	void changeRectSlot(QRect rect);
+	void zoomMinusSlot();
+	void zoomPlusSlot();
+
+signals:
+	void zoomPlusSignal();
+	void zoomMinusSignal();
 };

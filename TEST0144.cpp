@@ -37,7 +37,7 @@ TEST0144::TEST0144(QWidget* parent) : QWidget(parent)
 	installEventFilter(this);
 }
 
-TEST0144::~TEST0144() { std::cout << "TEST dest" << std::endl; }
+TEST0144::~TEST0144() {}
 
 bool TEST0144::eventFilter(QObject* obj, QEvent* evt)
 {

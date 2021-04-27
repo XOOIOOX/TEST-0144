@@ -110,7 +110,7 @@
     <QtMoc Include="LineItem.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GlobalStructs.h" />
+    <QtMoc Include="GlobalStructs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <QObject>
+#include <QGraphicsView>
 
 using int8 = int8_t;
 using int16 = int16_t;
@@ -41,3 +43,22 @@ using VectorViewws = Vector<Shared<QGraphicsView>>;
 using VectorWidgets = Vector<Shared<QWidget>>;
 using VectorLineWidgets = Vector<Shared<LineWidget>>;
 
+struct CommonBus : public QObject
+{
+	Q_OBJECT
+
+public slots:
+	void zoomPlusSlot() { emit zoomPlusSignal(); };
+	void zoomMinusSlot() { emit zoomMinusSignal(); };
+
+signals:
+	void zoomPlusSignal();
+	void zoomMinusSignal();
+};
+
+extern CommonBus commonBus;								// общая шина
+
+constexpr int numWidgets{ 50 };						// количество виджетов
+constexpr int numItems{ 50000 };						// количество итемов
+constexpr auto zoomMultiplier{ 1.25 };					// множитель зума
+constexpr auto windgetBorder{ 0.0 };					// значение бордюра
