@@ -37,7 +37,7 @@ template<typename T> auto makeItem() { return std::make_shared<T>(); }							// 
 using VectorInt = Vector<int>;
 using VectorItem = Vector<Item>;
 using VectorVectorItem = Vector<VectorItem>;
-using VectorViewws = Vector<QGraphicsView*>;
-using VectorWidgets = Vector<QWidget*>;
-using VectorLineWidgets = Vector<LineWidget*>;
+using VectorViewws = Vector<Shared<QGraphicsView>>;
+using VectorWidgets = Vector<Shared<QWidget>>;
+using VectorLineWidgets = Vector<Shared<LineWidget>>;
 

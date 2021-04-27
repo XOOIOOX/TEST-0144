@@ -18,16 +18,16 @@ TEST0144::TEST0144(QWidget* parent) : QWidget(parent)
 		}
 
 		manyItems.push_back(items);
-		widgets.push_back(new QWidget(this));
+		widgets.emplace_back(new QWidget(this));
 		widgets.back()->resize({ size().width(), size().height() / numWidgets });
 		widgets.back()->move(widgets.back()->pos().x(), size().height() / numWidgets * i);
 	}
 
-	for (auto& i : widgets) { views.push_back(new QGraphicsView(i)); }
+	for (auto& i : widgets) { views.emplace_back(new QGraphicsView(i.get())); }
 
 	for (int i = 0; i < numWidgets; ++i)
 	{
-		lineWidgets.push_back(new LineWidget(manyItems[i], widgets[i], views[i]));
+		lineWidgets.emplace_back(new LineWidget(manyItems[i], widgets[i].get(), views[i].get()));
 		auto [min, max] = std::minmax_element(manyItems[i].begin(), manyItems[i].end(), [](const auto& a, const auto& b) { return a.begin < b.begin; });
 		lineWidgets.back()->setRange({ static_cast<double>(min->begin), static_cast<double>(max->begin + max->length) });
 		lineWidgets.back()->zoomAll();
