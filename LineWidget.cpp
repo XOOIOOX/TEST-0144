@@ -32,19 +32,19 @@ void LineWidget::updateItems()
 	lineItem->visibleItems.clear();
 	for (auto& i : items)
 	{
-		lineItem->visibleItems.push_back({ static_cast<int>(convertValueToPosition(static_cast<double>(i.begin) * zoomLevel)),
-															static_cast<int>(convertValueToPosition(static_cast<double>(i.length) * zoomLevel)) });
+		lineItem->visibleItems.push_back({ static_cast<int>(convertValueToPosition(static_cast<double>(i.begin))),
+										 static_cast<int>(convertValueToPosition(static_cast<double>(i.length))) });
 	}
 }
 
 double LineWidget::convertValueToPosition(double point)
 {
-	return  (point - inputRange.minimum) / (inputRange.maximum - inputRange.minimum) * areaSize.width() + border;
+	return ((point - inputRange.minimum) / (inputRange.maximum - inputRange.minimum) * areaSize.width() + border) * zoomLevel;
 }
 
 double LineWidget::convertPositionToValue(double point)
 {
-	return  ((point - border) / areaSize.width()) * (inputRange.maximum - inputRange.minimum) + inputRange.minimum;
+	return ((point / zoomLevel - border) / areaSize.width()) * (inputRange.maximum - inputRange.minimum) + inputRange.minimum;
 }
 
 void LineWidget::areaSizeCalc()
