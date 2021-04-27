@@ -33,3 +33,6 @@ using Vector = std::vector<T>;
 
 using VectorInt = Vector<int>;
 using VectorItem = Vector<Item>;
+using VectorVectorItem = Vector<VectorItem>;
+using VectorViewws = Vector<QGraphicsView*>;
+using VectorWidgetss = Vector<QWidget*>;

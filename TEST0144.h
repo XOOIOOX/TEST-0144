@@ -20,5 +20,6 @@ private:
 	QGraphicsView* view;											// вьюшка
 	LineWidget* lineWidget;
 	VectorItem items;
+	VectorVectorItem manyItems;
 	bool eventResize();
 };
